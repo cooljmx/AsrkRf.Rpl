@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsrkRf.Rpl.Common", "AsrkRf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsrkRf.Rpl.Reflector", "AsrkRf.Rpl.Reflector\AsrkRf.Rpl.Reflector.csproj", "{7A58DC42-B96A-4C88-8583-A2C86D97A692}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsrkRf.Rpl.TransportService", "AsrkRf.Rpl.TransportService\AsrkRf.Rpl.TransportService.csproj", "{FCED1B4E-AB50-4227-9AEE-7E35C55A7F7F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{7A58DC42-B96A-4C88-8583-A2C86D97A692}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A58DC42-B96A-4C88-8583-A2C86D97A692}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A58DC42-B96A-4C88-8583-A2C86D97A692}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCED1B4E-AB50-4227-9AEE-7E35C55A7F7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCED1B4E-AB50-4227-9AEE-7E35C55A7F7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCED1B4E-AB50-4227-9AEE-7E35C55A7F7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCED1B4E-AB50-4227-9AEE-7E35C55A7F7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
