@@ -16,7 +16,7 @@ namespace AsrkRf.Rpl.TransportService
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:8001");
+                client.BaseAddress = new Uri("http://localhost:25107");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -25,6 +25,11 @@ namespace AsrkRf.Rpl.TransportService
                 {
                     var s = response.Content.ReadAsStringAsync().Result;
                     Console.WriteLine(s);
+                    var post = await client.PostAsJsonAsync("api/subdivision", s);
+                    if (post.IsSuccessStatusCode)
+                    {
+                        Console.WriteLine(post.Headers.Location);
+                    }
                     Console.ReadKey();
                 }
             }   

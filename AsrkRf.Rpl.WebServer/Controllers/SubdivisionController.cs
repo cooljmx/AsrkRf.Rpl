@@ -24,5 +24,11 @@ namespace AsrkRf.Rpl.WebServer.Controllers
         {
             return provider.Get(id);
         }
+
+        public int Post([FromBody]string value)
+        {
+            provider.Post(value);
+            return 0;
+        }
     }
 }

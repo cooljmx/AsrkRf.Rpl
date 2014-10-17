@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.Script.Serialization;
 using AsrkRf.Rpl.Common;
 using AsrkRf.Rpl.Reflector;
 using AsrkRf.Rpl.Subdivision.Cloud;
@@ -32,6 +33,19 @@ namespace AsrkRf.Rpl.Subdivision
                 {
                     throw;
                 }
+            }
+        }
+
+        public void Post(string value)
+        {
+            try
+            {
+                var obj1 = new JavaScriptSerializer().Deserialize<CloudSubdivision>(value);
+                var obj = (CloudSubdivision) obj1;
+            }
+            catch (Exception exception)
+            {
+                throw;
             }
         }
     }

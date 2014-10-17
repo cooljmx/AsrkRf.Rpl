@@ -12,5 +12,6 @@ namespace AsrkRf.Rpl.Common
     public interface ISubdivisionProvider : IProvider
     {
         ICloudSubdivision Get(long id);
+        void Post(string value);
     }
 }

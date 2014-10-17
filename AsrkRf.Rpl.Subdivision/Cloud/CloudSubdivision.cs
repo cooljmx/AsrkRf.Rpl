@@ -10,5 +10,9 @@ namespace AsrkRf.Rpl.Subdivision.Cloud
         public long IdRegion { get; set; }
 
         public ICloudSubdivision Parent { get; set; }
+
+        public CloudSubdivision()
+        {
+        }
     }
 }
