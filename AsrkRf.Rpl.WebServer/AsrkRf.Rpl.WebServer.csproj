@@ -39,6 +39,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FirebirdSql.Data.FirebirdClient">
+      <HintPath>..\packages\FirebirdSql.Data.FirebirdClient.4.5.1.0\lib\net40-client\FirebirdSql.Data.FirebirdClient.dll</HintPath>
+    </Reference>
     <Reference Include="FluentNHibernate">
       <HintPath>..\packages\FluentNHibernate.1.4.0.0\lib\net35\FluentNHibernate.dll</HintPath>
     </Reference>
@@ -137,11 +140,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="Controllers\SubdivisionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\Abstract\ISessionFactoryHelper.cs" />
-    <Compile Include="Infrastructure\Abstract\ISessionHelper.cs" />
     <Compile Include="Infrastructure\Concrete\SessionFactoryHelper.cs" />
     <Compile Include="Infrastructure\Concrete\SessionHelper.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
@@ -164,11 +166,21 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
+    <Folder Include="Infrastructure\Abstract\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AsrkRf.Rpl.Common\AsrkRf.Rpl.Common.csproj">
+      <Project>{3A7397D7-7763-4E0A-ACCC-13F954E5774D}</Project>
+      <Name>AsrkRf.Rpl.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AsrkRf.Rpl.Subdivision\AsrkRf.Rpl.Subdivision.csproj">
+      <Project>{2cbd9a9b-8164-4e14-b26d-d2fc67d8c081}</Project>
+      <Name>AsrkRf.Rpl.Subdivision</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

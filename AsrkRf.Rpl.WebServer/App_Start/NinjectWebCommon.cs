@@ -2,9 +2,9 @@ using System;
 using System.Web;
 using System.Web.Http;
 using System.Web.Security;
+using AsrkRf.Rpl.Common;
 using AsrkRf.Rpl.WebServer;
 using AsrkRf.Rpl.WebServer.Infrastructure;
-using AsrkRf.Rpl.WebServer.Infrastructure.Abstract;
 using AsrkRf.Rpl.WebServer.Infrastructure.Concrete;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
@@ -44,7 +44,7 @@ namespace AsrkRf.Rpl.WebServer
         public static void RegisterClassInjection()
         {
             bootstrapper.Kernel.Inject(Membership.Provider);
-            bootstrapper.Kernel.Inject(Roles.Provider);
+            //bootstrapper.Kernel.Inject(Roles.Provider);
         }
         
         /// <summary>
@@ -78,6 +78,7 @@ namespace AsrkRf.Rpl.WebServer
             kernel.Bind<ISessionHelper>()
                 .To<SessionHelper>()
                 .WithConstructorArgument("sessionFactoryHelper", new SessionFactoryHelper());
+            //kernel.Bind<isubd>()
 
             GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(kernel);
         }        

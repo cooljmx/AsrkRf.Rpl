@@ -1,6 +1,6 @@
 ﻿using NHibernate;
 
-namespace AsrkRf.Rpl.WebServer.Infrastructure.Abstract
+namespace AsrkRf.Rpl.Common
 {
     public interface ISessionFactoryHelper
     {

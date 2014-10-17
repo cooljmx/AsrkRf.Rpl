@@ -1,7 +1,8 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Web.Configuration;
 using System.Web.Hosting;
-using AsrkRf.Rpl.WebServer.Infrastructure.Abstract;
+using AsrkRf.Rpl.Common;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
@@ -16,16 +17,34 @@ namespace AsrkRf.Rpl.WebServer.Infrastructure.Concrete
         public SessionFactoryHelper()
         {
             var root = WebConfigurationManager.OpenWebConfiguration(HostingEnvironment.ApplicationVirtualPath);
-            var connectionString = root.AppSettings.Settings["ConnectionString"];
-            
-            var cfg = MsSqlConfiguration.MsSql2012; //FirebirdConfiguration();
+            var connectionString = root.AppSettings.Settings["ConnectionString"].Value;
+            var connectionProvider = root.AppSettings.Settings["ConnectionProvider"].Value;
 
-            log4net.Config.XmlConfigurator.Configure(); 
-            sessionFactory = Fluently.Configure()
-                .Database(cfg.ConnectionString(connectionString.Value).ShowSql())
-                .Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.Load("ExtReg.Entities")))
-                .Diagnostics(x => x.Enable())
-                .BuildSessionFactory();
+            IPersistenceConfigurer cfg = null;
+
+            switch (connectionProvider)
+            {
+                case "Firebird":
+                    cfg = (new FirebirdConfiguration()).ConnectionString(connectionString).ShowSql();
+                    break;
+                case "MsSqlServer":
+                    cfg = MsSqlConfiguration.MsSql2012.ConnectionString(connectionString).ShowSql();
+                    break;
+            }
+
+            log4net.Config.XmlConfigurator.Configure();
+            try
+            {
+                sessionFactory = Fluently.Configure()
+                    .Database(cfg)
+                    .Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.Load("AsrkRf.Rpl.Subdivision")))
+                    .Diagnostics(x => x.Enable())
+                    .BuildSessionFactory();
+            }
+            catch (Exception exception)
+            {
+                throw;
+            }
         }
 
         public ISessionFactory GetSessionFactory { get { return sessionFactory; } }

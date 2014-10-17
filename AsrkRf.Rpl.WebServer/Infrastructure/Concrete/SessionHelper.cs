@@ -1,4 +1,4 @@
-﻿using AsrkRf.Rpl.WebServer.Infrastructure.Abstract;
+﻿using AsrkRf.Rpl.Common;
 using NHibernate;
 
 namespace AsrkRf.Rpl.WebServer.Infrastructure.Concrete
