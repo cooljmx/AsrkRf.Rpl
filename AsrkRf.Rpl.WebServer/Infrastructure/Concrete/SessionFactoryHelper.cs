@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Web.Configuration;
 using System.Web.Hosting;
 using AsrkRf.Rpl.Common;
+using CompetitorReg.Infrastructure.Abstract;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;

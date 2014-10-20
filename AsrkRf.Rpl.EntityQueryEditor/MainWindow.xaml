@@ -1,0 +1,84 @@
+﻿<dx:DXWindow
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" 
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" 
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        xmlns:converter="clr-namespace:AsrkRf.Rpl.EntityQueryEditor.Converter"
+        x:Class="AsrkRf.Rpl.EntityQueryEditor.MainWindow"
+        Height="350" Width="800" WindowStartupLocation="CenterScreen" WindowState="Maximized"
+        DataContext="{Binding RelativeSource={RelativeSource Self}, Path=Model}"
+        Title="{Binding Title}" >
+    <dx:DXWindow.Resources>
+        <converter:NotNullConverter x:Key="NotNullConverter"/>
+    </dx:DXWindow.Resources>
+    <dxb:BarManager>
+        <dxb:BarManager.Bars>
+            <dxb:Bar x:Name="MainMenuBar" Caption="Файл" IsMainMenu="True">
+                <dxb:Bar.DockInfo>
+                    <dxb:BarDockInfo ContainerType="Top"/>
+                </dxb:Bar.DockInfo>
+                <dxb:BarSubItemLink BarItemName="File"/>
+            </dxb:Bar>
+            <dxb:Bar Caption="MainMenu" AllowCustomizationMenu="False" ShowDragWidget="False" AllowDrop="True">
+                <dxb:Bar.DockInfo>
+                    <dxb:BarDockInfo ContainerType="Top"/>
+                </dxb:Bar.DockInfo>
+                <dxb:BarButtonItemLink BarItemName="NewFile"/>
+                <dxb:BarButtonItemLink BarItemName="OpenFile"/>
+                <dxb:BarButtonItemLink BarItemName="SaveFile"/>
+                <dxb:BarItemLinkSeparator/>
+                <dxb:BarButtonItemLink BarItemName="AddQuery"/>
+                <dxb:BarButtonItemLink BarItemName="RenameQuery"/>
+                <dxb:BarButtonItemLink BarItemName="RemoveQuery"/>
+            </dxb:Bar>
+            <dxb:Bar x:Name="StatusBar" Caption="Status Bar" IsStatusBar="True">
+                <dxb:Bar.DockInfo>
+                    <dxb:BarDockInfo ContainerType="Bottom"/>
+                </dxb:Bar.DockInfo>
+                <dxb:BarStaticItemLink BarItemName="FileName"/>
+            </dxb:Bar>
+        </dxb:BarManager.Bars>
+        <dxb:BarManager.Items>
+            <dxb:BarSubItem x:Name="File" Content="Файл">
+                <dxb:BarButtonItemLink BarItemName="NewFile"/>
+                <dxb:BarButtonItemLink BarItemName="OpenFile"/>
+                <dxb:BarButtonItemLink BarItemName="SaveFile"/>
+                <dxb:BarButtonItemLink BarItemName="SaveAsFile"/>
+                <dxb:BarItemLinkSeparator BarItemName=""/>
+                <dxb:BarButtonItemLink BarItemName="CloseProgram"/>
+            </dxb:BarSubItem>
+            <dxb:BarButtonItem x:Name="NewFile" Content="Новый" ItemClick="NewFile_OnItemClick"/>
+            <dxb:BarButtonItem x:Name="OpenFile" Content="Открыть" ItemClick="OpenFile_OnItemClick"/>
+            <dxb:BarButtonItem x:Name="SaveFile" Content="Сохранить" ItemClick="SaveFile_OnItemClick"/>
+            <dxb:BarButtonItem x:Name="SaveAsFile" Content="Сохранить как..." ItemClick="SaveAsFile_OnItemClick"/>
+            <dxb:BarButtonItem x:Name="CloseProgram" Content="Закрыть" ItemClick="Close_OnItemClick"/>
+            <dxb:BarStaticItem x:Name="FileName" Content="{Binding FileName}"/>
+            <dxb:BarButtonItem x:Name="AddQuery" Content="Новая сущность" ItemClick="AddQuery_OnItemClick"/>
+            <dxb:BarButtonItem x:Name="RenameQuery" Content="Переименовать сущность" ItemClick="RenameQuery_OnItemClick"
+                               IsEnabled="{Binding SelectedEntity, Converter={StaticResource NotNullConverter}}"/>
+            <dxb:BarButtonItem x:Name="RemoveQuery" Content="Удалить сущность" ItemClick="RemoveQuery_OnItemClick"
+                               IsEnabled="{Binding SelectedEntity, Converter={StaticResource NotNullConverter}}"/>
+        </dxb:BarManager.Items>
+        <dxlc:LayoutControl Padding="0" Margin="0">
+            <dxlc:LayoutItem HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                <dxg:GridControl AutoGenerateColumns="None" ShowBorder="False" ItemsSource="{Binding Entities}" SelectedItem="{Binding SelectedEntity}">
+                    <dxg:GridControl.Columns>
+                        <dxg:GridColumn Header="Сущности" FieldName="ClassName" Width="250"/>
+                    </dxg:GridControl.Columns>
+                    <dxg:GridControl.View>
+                        <dxg:TableView ShowTotalSummary="False" ShowGroupPanel="False" ShowIndicator="False" NavigationStyle="Row"/>
+                    </dxg:GridControl.View>
+                </dxg:GridControl>
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <dxe:TextEdit TextWrapping="Wrap" AcceptsReturn="True" VerticalContentAlignment="Top" 
+                              EditValue="{Binding SelectedEntity.SqlText, UpdateSourceTrigger=PropertyChanged}"
+                              EditValueChanged="BaseEdit_OnEditValueChanged"
+                              IsEnabled="{Binding SelectedEntity, Converter={StaticResource NotNullConverter}}"/>
+            </dxlc:LayoutItem>
+        </dxlc:LayoutControl>
+    </dxb:BarManager>
+</dx:DXWindow>

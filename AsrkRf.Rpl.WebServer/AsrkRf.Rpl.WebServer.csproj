@@ -155,6 +155,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Global.asax" />
+    <Content Include="Providers\bin\AsrkRf.Rpl.Entity.FireBird.Podrazdelenie.dll" />
+    <Content Include="Providers\scripts\some.js" />
+    <Content Include="Providers\xml\Subdivision.xml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -162,7 +165,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -181,6 +183,9 @@
       <Project>{2cbd9a9b-8164-4e14-b26d-d2fc67d8c081}</Project>
       <Name>AsrkRf.Rpl.Subdivision</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\AsrkRf.Rpl.WebServer.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

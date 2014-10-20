@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web.Http;
+﻿using System.Web.Http;
 using AsrkRf.Rpl.Common;
 using AsrkRf.Rpl.Subdivision;
 
@@ -8,27 +6,21 @@ namespace AsrkRf.Rpl.WebServer.Controllers
 {
     public class SubdivisionController : ApiController
     {
-        private readonly ISubdivisionProvider provider;
+        private readonly IProvider provider;
 
         public SubdivisionController(ISessionHelper sessionHelper)
         {
             provider = new SubdivisionProvider(sessionHelper);
         }
 
-        public IEnumerable<ICloudSubdivision> Get()
-        {
-            return null;
-        }
-
-        public ICloudSubdivision Get(long id)
+        public ICloud Get(long id)
         {
             return provider.Get(id);
         }
 
-        public int Post([FromBody]string value)
+        public void Post([FromBody]ICloud value)
         {
             provider.Post(value);
-            return 0;
         }
     }
 }

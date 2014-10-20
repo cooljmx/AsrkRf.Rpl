@@ -45,14 +45,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CloudAttribute.cs" />
+    <Compile Include="EntityFile.cs" />
+    <Compile Include="EntityModel.cs" />
     <Compile Include="ICloud.cs" />
-    <Compile Include="ICloudSubdivision.cs" />
     <Compile Include="IProvider.cs" />
     <Compile Include="ISessionFactoryHelper.cs" />
     <Compile Include="ISessionHelper.cs" />
-    <Compile Include="ITypeResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VirtualNotifyPropertyChanged.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

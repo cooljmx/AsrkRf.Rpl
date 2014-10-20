@@ -1,33 +1,48 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Web.Script.Serialization;
 using AsrkRf.Rpl.Common;
-using AsrkRf.Rpl.Reflector;
 using AsrkRf.Rpl.Subdivision.Cloud;
-using AsrkRf.Rpl.Subdivision.Entities;
 
 namespace AsrkRf.Rpl.Subdivision
 {
-    public class SubdivisionProvider : ISubdivisionProvider
+    public class SubdivisionProvider: IProvider
     {
         private readonly ISessionHelper sessionHelper;
-        private readonly ITypeResolver typeResolver;
         public SubdivisionProvider(ISessionHelper sessionHelper)
         {
             this.sessionHelper = sessionHelper;
-            this.typeResolver = new SubdivisionTypeResolver();
         }
 
-        public ICloudSubdivision Get(long id)
+        private Type GetTypeByName(string name)
+        {
+            foreach (var file in Directory.GetFiles("Providers\\bin").Where(x=>x.EndsWith(".dll")))
+            {
+                var assembly = Assembly.LoadFile(file);
+                var type = assembly.GetType(name);
+                if (type != null) return type;
+            }
+            throw new Exception();
+        }
+
+        public ICloud Get(decimal id)
         {
             using (var session = sessionHelper.NewSession())
             {
                 try
                 {
-                    var src = session.Get<Podrazdelenie>(id);
-                    var dst = new CloudSubdivision();
-                    var reflector = new DirectReflector(typeResolver);
-                    reflector.Fill(src, dst);
-                    return dst;
+                    var entityFile =
+                        EntityFile.LoadFromFile(Assembly.GetExecutingAssembly().Location +
+                                                "\\Providers\\xml\\Firebird.Subdivision.xml");
+                    foreach (var item in entityFile)
+                    {
+                        var type = GetTypeByName(item.ClassName);
+                    }
+
+
+                    return null;
                 }
                 catch (Exception exception)
                 {
@@ -36,12 +51,12 @@ namespace AsrkRf.Rpl.Subdivision
             }
         }
 
-        public void Post(string value)
+        public void Post(ICloud value)
         {
             try
             {
-                var obj1 = new JavaScriptSerializer().Deserialize<CloudSubdivision>(value);
-                var obj = (CloudSubdivision) obj1;
+                /*var obj1 = new JavaScriptSerializer().Deserialize<CloudSubdivision>(value);
+                var obj = (CloudSubdivision) obj1;*/
             }
             catch (Exception exception)
             {

@@ -1,4 +1,5 @@
 ﻿using AsrkRf.Rpl.Common;
+using CompetitorReg.Infrastructure.Abstract;
 using NHibernate;
 
 namespace AsrkRf.Rpl.WebServer.Infrastructure.Concrete

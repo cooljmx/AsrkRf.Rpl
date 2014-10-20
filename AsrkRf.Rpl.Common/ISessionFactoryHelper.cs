@@ -1,6 +1,6 @@
 ﻿using NHibernate;
 
-namespace AsrkRf.Rpl.Common
+namespace CompetitorReg.Infrastructure.Abstract
 {
     public interface ISessionFactoryHelper
     {

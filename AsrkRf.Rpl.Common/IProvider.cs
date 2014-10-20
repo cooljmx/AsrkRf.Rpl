@@ -7,11 +7,13 @@ namespace AsrkRf.Rpl.Common
 {
     public interface IProvider
     {
+        ICloud Get(decimal id);
+        void Post(ICloud value);
     }
 
-    public interface ISubdivisionProvider : IProvider
+    /*public interface ISubdivisionProvider : IProvider
     {
-        ICloudSubdivision Get(long id);
+        //CloudSubdivision Get(long id);
         void Post(string value);
-    }
+    }*/
 }

@@ -51,24 +51,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cloud\CloudSubdivision.cs" />
-    <Compile Include="Entities\Podrazdelenie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubdivisionProvider.cs" />
-    <Compile Include="SubdivisionTypeResolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AsrkRf.Rpl.Common\AsrkRf.Rpl.Common.csproj">
       <Project>{3a7397d7-7763-4e0a-accc-13f954e5774d}</Project>
       <Name>AsrkRf.Rpl.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AsrkRf.Rpl.Reflector\AsrkRf.Rpl.Reflector.csproj">
-      <Project>{7a58dc42-b96a-4c88-8583-a2c86d97a692}</Project>
-      <Name>AsrkRf.Rpl.Reflector</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
