@@ -32,52 +32,35 @@ namespace AsrkRf.Rpl.Subdivision
         {
             const string entityPath = "H:\\GitHub\\AsrkRf.Rpl\\AsrkRf.Rpl.WebServer\\bin\\Debug\\Xml\\Subdivision.xml";
             var entityFile = EntityFile.LoadFromFile(entityPath);
-            foreach (var entity in entityFile)
+            var cloud = new CloudSubdivision();
+            using (var context = new JavascriptContext())
             {
-                var type = GetTypeByName(entity.ClassName);
-                using (var session = sessionHelper.NewSession())
+                context.SetParameter("cloud", cloud);
+                foreach (var entity in entityFile)
                 {
-                    var data = session.CreateSQLQuery(entity.SqlText)
-                        .SetParameter("id", Convert.ToInt64(id))
-                        .SetResultTransformer(Transformers.AliasToBean(type))
-                        .List();
-
-                    try
+                    var type = GetTypeByName(entity.ClassName);
+                    using (var session = sessionHelper.NewSession())
                     {
+                        var data = session.CreateSQLQuery(entity.SqlText)
+                            .SetParameter("id", Convert.ToInt64(id))
+                            .SetResultTransformer(Transformers.AliasToBean(type))
+                            .List();
+
                         var podrazdelenieList = (IList) Activator.CreateInstance(typeof (List<>).MakeGenericType(type));
                         foreach (var dataItem in data)
                         {
                             podrazdelenieList.Add(dataItem);
                         }
-
-                        using (var context = new JavascriptContext())
-                        {
-                            var cloud = new CloudSubdivision();
-
-                            context.SetParameter("podrazdelenieList", podrazdelenieList);
-                            context.SetParameter("cloud", cloud);
-                            using (var reader = new StreamReader("H:\\GitHub\\AsrkRf.Rpl\\AsrkRf.Rpl.WebServer\\bin\\Debug\\Scripts\\Firebird.Subdivision.Get.js"))
-                            {
-                                var script = reader.ReadToEnd();
-                                try
-                                {
-                                    context.Run(script);
-                                    return cloud;
-                                }
-                                catch (Exception exception)
-                                {
-                                    Console.WriteLine(exception.Message);
-                                }
-                            }
-                        }
-                    }
-                    catch (Exception exception)
-                    {
-                        Console.WriteLine(exception.Message);
+                        context.SetParameter("podrazdelenieList", podrazdelenieList);
                     }
                 }
+                using (var reader = new StreamReader("H:\\GitHub\\AsrkRf.Rpl\\AsrkRf.Rpl.WebServer\\bin\\Debug\\Scripts\\Firebird.Subdivision.Get.js"))
+                {
+                    var script = reader.ReadToEnd();
+                    context.Run(script);
+                    return cloud;
+                }
             }
-            return null;
         }
 
         public void Post(string value)
