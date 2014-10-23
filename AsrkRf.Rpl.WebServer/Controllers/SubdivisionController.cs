@@ -1,24 +1,24 @@
 ﻿using System.Web.Http;
-using AsrkRf.Rpl.Common;
+using AsrkRf.Rpl.Session;
 using AsrkRf.Rpl.Subdivision;
 
 namespace AsrkRf.Rpl.WebServer.Controllers
 {
     public class SubdivisionController : ApiController
     {
-        private readonly IProvider provider;
+        private readonly FirebirdSubdivisionProvider provider;
 
         public SubdivisionController(ISessionHelper sessionHelper)
         {
-            provider = new SubdivisionProvider(sessionHelper);
+            provider = new FirebirdSubdivisionProvider(sessionHelper);
         }
 
-        public ICloud Get(long id)
+        public object Get(long id)
         {
             return provider.Get(id);
         }
 
-        public void Post([FromBody]ICloud value)
+        public void Post([FromBody]string value)
         {
             provider.Post(value);
         }

@@ -16,7 +16,7 @@ namespace AsrkRf.Rpl.TransportService
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:25107");
+                client.BaseAddress = new Uri("http://localhost:8003");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 

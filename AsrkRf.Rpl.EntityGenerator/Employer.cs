@@ -62,7 +62,7 @@ where
     and r.rdb$relation_name not starting with 'IBE$'
     and ((:all_tables = 1) or (upper(r.rdb$relation_name) = upper(:table_name)));";
                     #endregion
-                    nameSpace = "AsrkRf.Rpl.Entity.FireBird";
+                    nameSpace = "FireBird";
                     break;
                 case "mssqlserver":
                     cfg = MsSqlConfiguration.MsSql2012.ConnectionString(connectionString).ShowSql();
@@ -141,7 +141,7 @@ where
                         .OrderBy(x => x.FieldName)
                         .Select(x => "\t\tpublic " + x.FieldType + " " + ResharpName(x.FieldName) + " { get; set; } /* Original name " + x.FieldName + "*/")
                         .Aggregate((a, b) => a + "\n" + b);
-                var code = "namespace " + nameSpace + "\n{\n\tpublic class " + className + "\n\t{\n" + properties + "\n\t}\n}";
+                var code = "using AsrkRf.Rpl.Common;\nnamespace " + nameSpace + "\n{\n\tpublic class " + className + " : IFirebird\n\t{\n" + properties + "\n\t}\n}";
                 codeList.Add(className,code);
             }
         }

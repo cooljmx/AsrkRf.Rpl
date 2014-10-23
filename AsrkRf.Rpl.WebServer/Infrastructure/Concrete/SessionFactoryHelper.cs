@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Reflection;
-using System.Web.Configuration;
-using System.Web.Hosting;
-using AsrkRf.Rpl.Common;
-using CompetitorReg.Infrastructure.Abstract;
+using System.Configuration;
+using AsrkRf.Rpl.Session;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
@@ -17,9 +15,8 @@ namespace AsrkRf.Rpl.WebServer.Infrastructure.Concrete
         // TODO: Сделать SessionFactoryHelper синглтоном уровня приложения
         public SessionFactoryHelper()
         {
-            var root = WebConfigurationManager.OpenWebConfiguration(HostingEnvironment.ApplicationVirtualPath);
-            var connectionString = root.AppSettings.Settings["ConnectionString"].Value;
-            var connectionProvider = root.AppSettings.Settings["ConnectionProvider"].Value;
+            var connectionString = ConfigurationManager.AppSettings["ConnectionString"];
+            var connectionProvider = ConfigurationManager.AppSettings["ConnectionProvider"];
 
             IPersistenceConfigurer cfg = null;
 
@@ -33,7 +30,7 @@ namespace AsrkRf.Rpl.WebServer.Infrastructure.Concrete
                     break;
             }
 
-            log4net.Config.XmlConfigurator.Configure();
+            //log4net.Config.XmlConfigurator.Configure();
             try
             {
                 sessionFactory = Fluently.Configure()
