@@ -25,6 +25,7 @@ namespace AsrkRf.Rpl.Subdivision
         private Type GetTypeByName(string name)
         {
             if (name == "Firebird.Entity.Podrazdelenie") return typeof(Podrazdelenie);
+            if (name == "Firebird.Entity.Test") return typeof(Test);
             return null;
         }
 
@@ -36,6 +37,7 @@ namespace AsrkRf.Rpl.Subdivision
             using (var context = new JavascriptContext())
             {
                 context.SetParameter("cloud", cloud);
+                //context.SetParameter("console", new SystemConsole());
                 foreach (var entity in entityFile)
                 {
                     var type = GetTypeByName(entity.ClassName);
@@ -46,12 +48,20 @@ namespace AsrkRf.Rpl.Subdivision
                             .SetResultTransformer(Transformers.AliasToBean(type))
                             .List();
 
-                        var podrazdelenieList = (IList) Activator.CreateInstance(typeof (List<>).MakeGenericType(type));
-                        foreach (var dataItem in data)
+                        if (entity.IsList)
                         {
-                            podrazdelenieList.Add(dataItem);
+                            var obj = (IList) Activator.CreateInstance(typeof (List<>).MakeGenericType(type));
+                            foreach (var dataItem in data)
+                            {
+                                obj.Add(dataItem);
+                            }
+                            context.SetParameter(entity.ObjectName, obj);
                         }
-                        context.SetParameter("podrazdelenieList", podrazdelenieList);
+                        else
+                        {
+                            var obj = Convert.ChangeType(data[0], type);
+                            context.SetParameter(entity.ObjectName, obj);
+                        }
                     }
                 }
                 using (var reader = new StreamReader("H:\\GitHub\\AsrkRf.Rpl\\AsrkRf.Rpl.WebServer\\bin\\Debug\\Scripts\\Firebird.Subdivision.Get.js"))

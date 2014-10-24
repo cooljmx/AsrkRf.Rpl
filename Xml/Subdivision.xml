@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<Entities xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Entity>
     <ClassName>Firebird.Entity.Podrazdelenie</ClassName>
     <SqlText>with recursive tree
@@ -25,5 +25,14 @@ as
             inner join tree prior on prior."IdParent" = p.id_podrazdelenie
     )
 select * from tree</SqlText>
+    <IsList>true</IsList>
+    <ObjectName>podrazdelenieList</ObjectName>
+  </Entity>
+  <Entity>
+    <ClassName>Firebird.Test</ClassName>
+    <SqlText>select cast(:id as integer) as "Id"
+from rdb$database</SqlText>
+    <IsList>false</IsList>
+    <ObjectName>test</ObjectName>
   </Entity>
 </Entities>

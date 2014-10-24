@@ -21,4 +21,9 @@ namespace FireBird.Entity
 		public int RplIdServer { get; set; } /* Original name RPL_ID_SERVER*/
 		public string Sname { get; set; } /* Original name SNAME*/
 	}
+
+    public class Test : CommonEntity, IFirebird
+    {
+        public int Id { get; set; }
+    }
 }

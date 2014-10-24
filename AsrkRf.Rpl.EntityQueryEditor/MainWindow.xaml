@@ -73,12 +73,22 @@
                     </dxg:GridControl.View>
                 </dxg:GridControl>
             </dxlc:LayoutItem>
-            <dxlc:LayoutItem HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <dxe:TextEdit TextWrapping="Wrap" AcceptsReturn="True" VerticalContentAlignment="Top" 
-                              EditValue="{Binding SelectedEntity.SqlText, UpdateSourceTrigger=PropertyChanged}"
-                              EditValueChanged="BaseEdit_OnEditValueChanged"
-                              IsEnabled="{Binding SelectedEntity, Converter={StaticResource NotNullConverter}}"/>
-            </dxlc:LayoutItem>
+            <dxlc:LayoutGroup Orientation="Vertical">
+                <dxlc:LayoutGroup>
+                    <dxlc:LayoutItem Label="Наименование объекта:" LabelPosition="Top" HorizontalAlignment="Stretch">
+                        <dxe:TextEdit EditValue="{Binding SelectedEntity.ObjectName}"/>
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem VerticalAlignment="Center" HorizontalAlignment="Right" Label="Является листом" LabelPosition="Top" HorizontalContentAlignment="Center">
+                        <dxe:CheckEdit EditValue="{Binding SelectedEntity.IsList}"/>
+                    </dxlc:LayoutItem>
+                </dxlc:LayoutGroup>
+                <dxlc:LayoutItem HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Label="Текст SQL-запроса" LabelPosition="Top">
+                    <dxe:TextEdit TextWrapping="Wrap" AcceptsReturn="True" VerticalContentAlignment="Top" 
+                                  EditValue="{Binding SelectedEntity.SqlText, UpdateSourceTrigger=PropertyChanged}"
+                                  EditValueChanged="BaseEdit_OnEditValueChanged"
+                                  IsEnabled="{Binding SelectedEntity, Converter={StaticResource NotNullConverter}}"/>
+                </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
         </dxlc:LayoutControl>
     </dxb:BarManager>
 </dx:DXWindow>
