@@ -13,3 +13,4 @@ podrazdelenieList.forEach(function (element) {
     }
 });
 
+cloud.Print(test.Id);
