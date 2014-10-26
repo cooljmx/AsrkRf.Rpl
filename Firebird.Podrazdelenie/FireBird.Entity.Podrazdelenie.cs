@@ -1,5 +1,6 @@
-using System;
 using AsrkRf.Rpl.Common;
+using FluentNHibernate.Mapping;
+
 namespace FireBird.Entity
 {
 	public class Podrazdelenie : CommonEntity, IFirebird
@@ -22,8 +23,13 @@ namespace FireBird.Entity
 		public string Sname { get; set; } /* Original name SNAME*/
 	}
 
-    public class Test : CommonEntity, IFirebird
+    public class PodrazdelenieMap : ClassMap<Podrazdelenie>
     {
-        public int Id { get; set; }
+        public PodrazdelenieMap()
+        {
+            Table("Podrazdelenie");
+            Id(x => x.IdPodrazdelenie).Column("ID_PODRAZDELENIE");
+            Map(x => x.IdRegion).Column("ID_REGION");
+        }
     }
 }

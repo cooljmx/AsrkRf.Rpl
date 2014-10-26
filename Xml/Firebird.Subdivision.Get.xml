@@ -24,15 +24,8 @@ as
         from podrazdelenie p
             inner join tree prior on prior."IdParent" = p.id_podrazdelenie
     )
-select * from tree</SqlText>
+select * from tree;</SqlText>
     <IsList>true</IsList>
     <ObjectName>podrazdelenieList</ObjectName>
-  </Entity>
-  <Entity>
-    <ClassName>Firebird.Test</ClassName>
-    <SqlText>select cast(:id as integer) as "Id"
-from rdb$database</SqlText>
-    <IsList>false</IsList>
-    <ObjectName>test</ObjectName>
   </Entity>
 </Entities>

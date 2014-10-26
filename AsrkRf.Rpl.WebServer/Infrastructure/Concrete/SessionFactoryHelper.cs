@@ -12,7 +12,6 @@ namespace AsrkRf.Rpl.WebServer.Infrastructure.Concrete
     {
         private readonly ISessionFactory sessionFactory;
 
-        // TODO: Сделать SessionFactoryHelper синглтоном уровня приложения
         public SessionFactoryHelper()
         {
             var connectionString = ConfigurationManager.AppSettings["ConnectionString"];

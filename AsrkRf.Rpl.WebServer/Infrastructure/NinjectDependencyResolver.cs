@@ -3,7 +3,7 @@ using Ninject;
 
 namespace AsrkRf.Rpl.WebServer.Infrastructure
 {
-    public class NinjectDependencyResolver : NinjectDependencyScope, System.Web.Http.Dependencies.IDependencyResolver 
+    public class NinjectDependencyResolver : NinjectDependencyScope, IDependencyResolver 
     {
         private readonly IKernel kernel;
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Http;
 using System.Web.Http.SelfHost;
+using AsrkRf.Rpl.Common;
 using AsrkRf.Rpl.Session;
 using AsrkRf.Rpl.WebServer.Infrastructure;
 using AsrkRf.Rpl.WebServer.Infrastructure.Concrete;
@@ -77,8 +78,7 @@ namespace AsrkRf.Rpl.WebServer
             kernel.Bind<ISessionHelper>()
                 .To<SessionHelper>()
                 .WithConstructorArgument("sessionFactoryHelper", new SessionFactoryHelper());
-            //kernel.Bind<IDependency>().To<Dependency>();
-            //kernel.Bind<ISingletonDependency>().ToConstant(new SingletonDependency());
+            kernel.Bind<IUriHelper>().ToConstant(new UriHelper());
         }    
 
         public void Dispose()

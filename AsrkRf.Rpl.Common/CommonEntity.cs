@@ -20,5 +20,10 @@ namespace AsrkRf.Rpl.Common
 
             prop.SetValue(this, convertedValue, null);
         }
+
+        public object CreateInstance()
+        {
+            return Activator.CreateInstance(GetType());
+        }
     }
 }

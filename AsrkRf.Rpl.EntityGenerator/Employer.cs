@@ -142,6 +142,7 @@ where
                         .Select(x => "\t\tpublic " + x.FieldType + " " + ResharpName(x.FieldName) + " { get; set; } /* Original name " + x.FieldName + "*/")
                         .Aggregate((a, b) => a + "\n" + b);
                 var code = "using AsrkRf.Rpl.Common;\nnamespace " + nameSpace + "\n{\n\tpublic class " + className + " : IFirebird\n\t{\n" + properties + "\n\t}\n}";
+                var mapCode = "\n";
                 codeList.Add(className,code);
             }
         }

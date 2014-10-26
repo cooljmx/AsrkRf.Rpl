@@ -75,10 +75,15 @@
             </dxlc:LayoutItem>
             <dxlc:LayoutGroup Orientation="Vertical">
                 <dxlc:LayoutGroup>
-                    <dxlc:LayoutItem Label="Наименование объекта:" LabelPosition="Top" HorizontalAlignment="Stretch">
-                        <dxe:TextEdit EditValue="{Binding SelectedEntity.ObjectName}"/>
-                    </dxlc:LayoutItem>
-                    <dxlc:LayoutItem VerticalAlignment="Center" HorizontalAlignment="Right" Label="Является листом" LabelPosition="Top" HorizontalContentAlignment="Center">
+                    <dxlc:LayoutGroup Orientation="Vertical">
+                        <dxlc:LayoutItem Label="Наименование объекта:" LabelPosition="Top" HorizontalAlignment="Stretch">
+                            <dxe:TextEdit EditValue="{Binding SelectedEntity.ObjectName}"/>
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Label="Наименование элемента в листе:" LabelPosition="Top" HorizontalAlignment="Stretch">
+                            <dxe:TextEdit EditValue="{Binding SelectedEntity.ItemName}" IsEnabled="{Binding SelectedEntity.IsList}"/>
+                        </dxlc:LayoutItem>
+                    </dxlc:LayoutGroup>
+                    <dxlc:LayoutItem VerticalAlignment="Top" HorizontalAlignment="Right" Label="Является листом" LabelPosition="Top" HorizontalContentAlignment="Center">
                         <dxe:CheckEdit EditValue="{Binding SelectedEntity.IsList}"/>
                     </dxlc:LayoutItem>
                 </dxlc:LayoutGroup>

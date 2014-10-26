@@ -94,6 +94,7 @@
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Infrastructure\Concrete\SessionFactoryHelper.cs" />
     <Compile Include="Infrastructure\Concrete\SessionHelper.cs" />
+    <Compile Include="Infrastructure\Concrete\UriHelper.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Infrastructure\NinjectDependencyScope.cs" />
     <Compile Include="Program.cs" />

@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using AsrkRf.Rpl.Common;
 using AsrkRf.Rpl.Session;
 using AsrkRf.Rpl.Subdivision;
 
@@ -8,9 +9,9 @@ namespace AsrkRf.Rpl.WebServer.Controllers
     {
         private readonly FirebirdSubdivisionProvider provider;
 
-        public SubdivisionController(ISessionHelper sessionHelper)
+        public SubdivisionController(ISessionHelper sessionHelper, IUriHelper uriHelper)
         {
-            provider = new FirebirdSubdivisionProvider(sessionHelper);
+            provider = new FirebirdSubdivisionProvider(sessionHelper, uriHelper);
         }
 
         public object Get(long id)
