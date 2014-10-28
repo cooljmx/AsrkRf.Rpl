@@ -90,6 +90,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ActController.cs" />
     <Compile Include="Controllers\SubdivisionController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Infrastructure\Concrete\SessionFactoryHelper.cs" />
@@ -109,6 +110,10 @@
     <Folder Include="Infrastructure\Abstract\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AsrkRf.Rpl.Act\AsrkRf.Rpl.Act.csproj">
+      <Project>{05ce1746-987d-423c-856e-8dfc65767ab3}</Project>
+      <Name>AsrkRf.Rpl.Act</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AsrkRf.Rpl.Common\AsrkRf.Rpl.Common.csproj">
       <Project>{3a7397d7-7763-4e0a-accc-13f954e5774d}</Project>
       <Name>AsrkRf.Rpl.Common</Name>

@@ -25,6 +25,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsrkRf.Rpl.Session", "AsrkR
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clouds", "Clouds", "{E7ADE808-997F-4850-80A2-7BAB68FDB2F3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Providers", "Providers", "{CA017338-FACD-41C2-ACB0-2D4199B17C25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsrkRf.Rpl.Act", "AsrkRf.Rpl.Act\AsrkRf.Rpl.Act.csproj", "{05CE1746-987D-423C-856E-8DFC65767AB3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,12 +71,18 @@ Global
 		{724018FE-9A53-4DE8-8E2D-99500F7134F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{724018FE-9A53-4DE8-8E2D-99500F7134F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{724018FE-9A53-4DE8-8E2D-99500F7134F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05CE1746-987D-423C-856E-8DFC65767AB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05CE1746-987D-423C-856E-8DFC65767AB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05CE1746-987D-423C-856E-8DFC65767AB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05CE1746-987D-423C-856E-8DFC65767AB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{2CBD9A9B-8164-4E14-B26D-D2FC67D8C081} = {CA017338-FACD-41C2-ACB0-2D4199B17C25}
 		{603DB0B0-437C-420A-82CF-A40ACB88CC78} = {E7ADE808-997F-4850-80A2-7BAB68FDB2F3}
 		{5ADDA3E2-EDAE-4931-BDCF-B41CFB91F42F} = {135525B7-9196-4FFA-9666-3930FC98DB75}
+		{05CE1746-987D-423C-856E-8DFC65767AB3} = {CA017338-FACD-41C2-ACB0-2D4199B17C25}
 	EndGlobalSection
 EndGlobal
