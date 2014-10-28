@@ -19,6 +19,7 @@ namespace AsrkRf.Rpl.EntityGenerator
     {
         public string TableName { get; set; }
         public string FieldName { get; set; }
+        public string ResharpedFiledName { get; set; }
         public string FieldType { get; set; }
         public int PkFlag { get; set; }
     }
@@ -138,6 +139,12 @@ where
                     }
                 }
             }
+            foreach (var tableInfo in tableInfoList)
+            {
+                tableInfo.ResharpedFiledName = ResharpName(tableInfo.FieldName);
+                if (ResharpName(tableInfo.TableName) == tableInfo.ResharpedFiledName)
+                    tableInfo.ResharpedFiledName += "Tail";
+            }
         }
 
         private void GenClasses()
@@ -149,15 +156,15 @@ where
                     tableInfoList
                         .Where(x => x.TableName == tableName)
                         .OrderBy(x => x.FieldName)
-                        .Select(x => "\t\tpublic virtual " + x.FieldType + " " + ResharpName(x.FieldName) + " { get; set; } /* Original name " + x.FieldName + "*/")
+                        .Select(x => "\t\tpublic virtual " + x.FieldType + " " + x.ResharpedFiledName + " { get; set; } /* Original name " + x.FieldName + "*/")
                         .Aggregate((a, b) => a + "\r\n" + b);
                 var mappedId = tableInfoList
                     .Where(x => x.TableName == tableName && x.PkFlag == 1)
-                    .Select(x => "\t\t\tId(x => x." + ResharpName(x.FieldName) + ").Column(\"" + x.FieldName + "\").GeneratedBy.TriggerIdentity();\r\n")
+                    .Select(x => "\t\t\tId(x => x." + x.ResharpedFiledName + ").Column(\"" + x.FieldName + "\").GeneratedBy.TriggerIdentity();\r\n")
                     .FirstOrDefault();
                 var mappedFields = tableInfoList
                     .Where(x => x.TableName == tableName && x.PkFlag == 0)
-                    .Select(x => "\t\t\tMap(x => x." + ResharpName(x.FieldName) + ").Column(\""+ x.FieldName +"\");\r\n")
+                    .Select(x => "\t\t\tMap(x => x." + x.ResharpedFiledName + ").Column(\""+ x.FieldName +"\");\r\n")
                     .Aggregate((a, b) => a + b);
                 var mapCode = "\tpublic class " + className + "Map : ClassMap<" + className + ">\r\n\t{\r\n\t\tpublic " +
                               className + "Map()\r\n\t\t{\r\n" +
@@ -165,7 +172,7 @@ where
                               mappedId+
                               mappedFields+
                               "\t\t}\r\n\t}";
-                var code = "using AsrkRf.Rpl.Common;\r\nusing FluentNHibernate.Mapping;\r\nnamespace " + nameSpace +
+                var code = "using AsrkRf.Rpl.Common;\r\nusing FluentNHibernate.Mapping;\r\nusing System;\r\nnamespace " + nameSpace +
                            "\r\n{\r\n\tpublic class " + className + " : IFirebird\r\n\t{\r\n" + properties + "\r\n\t}\r\n" + mapCode +
                            "\r\n}\r\n";
                 codeList.Add(className,code);
