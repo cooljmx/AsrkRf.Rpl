@@ -61,6 +61,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AsrkRf.Rpl.Common\AsrkRf.Rpl.Common.csproj">
+      <Project>{3a7397d7-7763-4e0a-accc-13f954e5774d}</Project>
+      <Name>AsrkRf.Rpl.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

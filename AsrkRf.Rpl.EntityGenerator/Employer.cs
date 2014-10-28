@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using Microsoft.CSharp;
@@ -18,6 +20,7 @@ namespace AsrkRf.Rpl.EntityGenerator
         public string TableName { get; set; }
         public string FieldName { get; set; }
         public string FieldType { get; set; }
+        public int PkFlag { get; set; }
     }
     
     internal class Employer
@@ -52,7 +55,13 @@ namespace AsrkRf.Rpl.EntityGenerator
         when f.rdb$field_type in (8) then 'int'
         when f.rdb$field_type in (261) and f.rdb$field_sub_type = 1 then 'string'
         else 'object'
-    end) ""FieldType""
+    end) ""FieldType"",
+    (
+        select 1
+        from rdb$relation_constraints rc
+            join rdb$index_segments i on i.rdb$index_name = rc.rdb$index_name and i.rdb$field_name = rf.rdb$field_name
+        where rc.rdb$relation_name = r.rdb$relation_name and rc.rdb$constraint_type = 'PRIMARY KEY'
+    ) ""PkFlag""
 from rdb$relations r
     join rdb$relation_fields rf on rf.rdb$relation_name = r.rdb$relation_name
     join rdb$fields f on f.rdb$field_name = rf.rdb$field_source
@@ -62,11 +71,11 @@ where
     and r.rdb$relation_name not starting with 'IBE$'
     and ((:all_tables = 1) or (upper(r.rdb$relation_name) = upper(:table_name)));";
                     #endregion
-                    nameSpace = "FireBird";
+                    nameSpace = "FireBird.Entity";
                     break;
                 case "mssqlserver":
                     cfg = MsSqlConfiguration.MsSql2012.ConnectionString(connectionString).ShowSql();
-                    nameSpace = "MsSql";
+                    nameSpace = "MsSql.Entity";
                     break;
             }
 
@@ -137,12 +146,28 @@ where
             {
                 var className = ResharpName(tableName);
                 var properties =
-                    tableInfoList.Where(x => x.TableName == tableName)
+                    tableInfoList
+                        .Where(x => x.TableName == tableName)
                         .OrderBy(x => x.FieldName)
-                        .Select(x => "\t\tpublic " + x.FieldType + " " + ResharpName(x.FieldName) + " { get; set; } /* Original name " + x.FieldName + "*/")
-                        .Aggregate((a, b) => a + "\n" + b);
-                var code = "using AsrkRf.Rpl.Common;\nnamespace " + nameSpace + "\n{\n\tpublic class " + className + " : IFirebird\n\t{\n" + properties + "\n\t}\n}";
-                var mapCode = "\n";
+                        .Select(x => "\t\tpublic virtual " + x.FieldType + " " + ResharpName(x.FieldName) + " { get; set; } /* Original name " + x.FieldName + "*/")
+                        .Aggregate((a, b) => a + "\r\n" + b);
+                var mappedId = tableInfoList
+                    .Where(x => x.TableName == tableName && x.PkFlag == 1)
+                    .Select(x => "\t\t\tId(x => x." + ResharpName(x.FieldName) + ").Column(\"" + x.FieldName + "\").GeneratedBy.TriggerIdentity();\r\n")
+                    .FirstOrDefault();
+                var mappedFields = tableInfoList
+                    .Where(x => x.TableName == tableName && x.PkFlag == 0)
+                    .Select(x => "\t\t\tMap(x => x." + ResharpName(x.FieldName) + ").Column(\""+ x.FieldName +"\");\r\n")
+                    .Aggregate((a, b) => a + b);
+                var mapCode = "\tpublic class " + className + "Map : ClassMap<" + className + ">\r\n\t{\r\n\t\tpublic " +
+                              className + "Map()\r\n\t\t{\r\n" +
+                              "\t\t\tTable(\"" + tableName + "\");\r\n" +
+                              mappedId+
+                              mappedFields+
+                              "\t\t}\r\n\t}";
+                var code = "using AsrkRf.Rpl.Common;\r\nusing FluentNHibernate.Mapping;\r\nnamespace " + nameSpace +
+                           "\r\n{\r\n\tpublic class " + className + " : IFirebird\r\n\t{\r\n" + properties + "\r\n\t}\r\n" + mapCode +
+                           "\r\n}\r\n";
                 codeList.Add(className,code);
             }
         }
@@ -162,12 +187,26 @@ where
         private void GenDll()
         {
             var provider = new CSharpCodeProvider();
-            var parameters = new CompilerParameters();
-            parameters.GenerateExecutable = false;
+            var parameters = new CompilerParameters {GenerateExecutable = false};
+
             foreach (var item in codeList)
             {
                 parameters.OutputAssembly = path + "\\" + nameSpace + "." + item.Key + ".dll";
-                provider.CompileAssemblyFromSource(parameters, item.Value);
+                parameters.ReferencedAssemblies.Add(".\\AsrkRf.Rpl.Common.dll");
+                parameters.ReferencedAssemblies.Add(".\\FluentNHibernate.dll");
+                //parameters.ReferencedAssemblies.Add(".\\Iesi.Collections.dll");
+                parameters.ReferencedAssemblies.Add(".\\NHibernate.dll");
+                parameters.ReferencedAssemblies.Add("System.Core.dll");
+                var results = provider.CompileAssemblyFromSource(parameters, item.Value);
+                if (!results.Errors.HasErrors) continue;
+                var sb = new StringBuilder();
+
+                foreach (CompilerError error in results.Errors)
+                {
+                    sb.AppendLine(String.Format("Error ({0}): {1}", error.ErrorNumber, error.ErrorText));
+                }
+
+                throw new InvalidOperationException(sb.ToString());
             }
         }
 
