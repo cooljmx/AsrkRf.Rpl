@@ -11,7 +11,7 @@ namespace CloudAct
     /// </summary>
     public class CloudAct
     {
-        private readonly IList<CloudProtocol> protocols = new List<CloudProtocol>();
+        private readonly IList<decimal> protocols = new List<decimal>();
         private readonly IList<decimal> actPerformers = new List<decimal>();
         private readonly IList<decimal> rkoList = new List<decimal>();
         private readonly IList<CloudActWorkTime> workTimes = new List<CloudActWorkTime>();
@@ -89,7 +89,7 @@ namespace CloudAct
         /// <summary>
         /// RK_REL_ACT_PROTOCOL [REL]
         /// </summary>
-        public IList<CloudProtocol> Protocols { get { return protocols; } }
+        public IList<decimal> Protocols { get { return protocols; } }
 
         /// <summary>
         /// ACT_PERFORMER [REL]

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CloudAct
+namespace CloudProtocol
 {
     /// <summary>
     /// RES_PROTOCOL_IZM_TP
