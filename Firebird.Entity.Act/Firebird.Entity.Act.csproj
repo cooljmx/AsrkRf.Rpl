@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2CBD9A9B-8164-4E14-B26D-D2FC67D8C081}</ProjectGuid>
+    <ProjectGuid>{065BAA4D-6790-4F53-906B-B4AEAB3663ED}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AsrkRf.Rpl.Subdivision</RootNamespace>
-    <AssemblyName>AsrkRf.Rpl.Subdivision</AssemblyName>
+    <RootNamespace>Firebird.Entity.Act</RootNamespace>
+    <AssemblyName>Firebird.Entity.Act</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -20,7 +21,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -37,16 +37,12 @@
     <Reference Include="Iesi.Collections">
       <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
-    <Reference Include="NHibernate">
+    <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\NHibernate.3.3.1.4000\lib\Net35\NHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="Noesis.Javascript" Condition="'$(PlatformTarget)' == 'x86'">
-      <HintPath>..\packages\Noesis.Javascript.0.7.1.0\lib\net40\x86\Noesis.Javascript.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -54,43 +50,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FireBird.Entity.ACT_DATA.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FirebirdSubdivisionProvider.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AsrkRf.Rpl.CommonProvider\AsrkRf.Rpl.CommonProvider.csproj">
-      <Project>{bff1d55f-e5b0-4b74-a6ee-9a48d84e226e}</Project>
-      <Name>AsrkRf.Rpl.CommonProvider</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AsrkRf.Rpl.Common\AsrkRf.Rpl.Common.csproj">
-      <Project>{3a7397d7-7763-4e0a-accc-13f954e5774d}</Project>
-      <Name>AsrkRf.Rpl.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AsrkRf.Rpl.Session\AsrkRf.Rpl.Session.csproj">
-      <Project>{724018fe-9a53-4de8-8e2d-99500f7134f4}</Project>
-      <Name>AsrkRf.Rpl.Session</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CloudSubdivision\CloudSubdivision.csproj">
-      <Project>{603db0b0-437c-420a-82cf-a40acb88cc78}</Project>
-      <Name>CloudSubdivision</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Firebird.Podrazdelenie\Firebird.Podrazdelenie.csproj">
-      <Project>{5adda3e2-edae-4931-bdcf-b41cfb91f42f}</Project>
-      <Name>Firebird.Podrazdelenie</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\AsrkRf.Rpl.Common\AsrkRf.Rpl.Common.csproj">
+      <Project>{3a7397d7-7763-4e0a-accc-13f954e5774d}</Project>
+      <Name>AsrkRf.Rpl.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>
-    if not exist "$(TargetDir)x86" md "$(TargetDir)x86"
-    xcopy /s /y "$(SolutionDir)packages\Noesis.Javascript.0.7.1.0\NativeBinaries\net40\x86\*.*" "$(TargetDir)x86"
-    if not exist "$(TargetDir)amd64" md "$(TargetDir)amd64"
-    xcopy /s /y "$(SolutionDir)packages\Noesis.Javascript.0.7.1.0\NativeBinaries\net40\amd64\*.*" "$(TargetDir)amd64"</PostBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

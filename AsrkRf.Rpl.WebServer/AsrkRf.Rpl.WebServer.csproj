@@ -114,6 +114,10 @@
       <Project>{05ce1746-987d-423c-856e-8dfc65767ab3}</Project>
       <Name>AsrkRf.Rpl.Act</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AsrkRf.Rpl.CommonProvider\AsrkRf.Rpl.CommonProvider.csproj">
+      <Project>{bff1d55f-e5b0-4b74-a6ee-9a48d84e226e}</Project>
+      <Name>AsrkRf.Rpl.CommonProvider</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AsrkRf.Rpl.Common\AsrkRf.Rpl.Common.csproj">
       <Project>{3a7397d7-7763-4e0a-accc-13f954e5774d}</Project>
       <Name>AsrkRf.Rpl.Common</Name>

@@ -8,7 +8,7 @@ namespace AsrkRf.Rpl.WebServer
     {
         static void Main(string[] args)
         {
-            var executingAssemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            /*var executingAssemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var providersPath = executingAssemblyPath + "\\Providers";
             var entitiesPath = executingAssemblyPath + "\\Entities";
             var cloudsPath = executingAssemblyPath + "\\Clouds";
@@ -16,7 +16,7 @@ namespace AsrkRf.Rpl.WebServer
             if (!Directory.Exists(providersPath)) Directory.CreateDirectory(providersPath);
             if (!Directory.Exists(entitiesPath)) Directory.CreateDirectory(entitiesPath);
             if (!Directory.Exists(cloudsPath)) Directory.CreateDirectory(cloudsPath);
-            if (!Directory.Exists(scriptsPath)) Directory.CreateDirectory(scriptsPath);
+            if (!Directory.Exists(scriptsPath)) Directory.CreateDirectory(scriptsPath);*/
 
             using (var server = new WebApiServer(8003))
             {

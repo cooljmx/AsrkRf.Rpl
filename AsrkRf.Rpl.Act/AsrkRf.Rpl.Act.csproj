@@ -60,6 +60,14 @@
       <Project>{724018fe-9a53-4de8-8e2d-99500f7134f4}</Project>
       <Name>AsrkRf.Rpl.Session</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CloudAct\CloudAct.csproj">
+      <Project>{ae37c96c-cefa-4dba-8b7c-961b0d13494a}</Project>
+      <Name>CloudAct</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Firebird.Entity.Act\Firebird.Entity.Act.csproj">
+      <Project>{065baa4d-6790-4f53-906b-b4aeab3663ed}</Project>
+      <Name>Firebird.Entity.Act</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

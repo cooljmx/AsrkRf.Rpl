@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Entity>
-    <ClassName>Firebird.Entity.Podrazdelenie</ClassName>
+    <ClassName>Firebird.Entity.PODRAZDELENIE</ClassName>
     <SqlText>with recursive tree
 as
     (

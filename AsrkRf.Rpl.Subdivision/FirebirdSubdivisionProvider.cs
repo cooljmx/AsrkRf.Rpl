@@ -6,28 +6,15 @@ using System.Runtime.Serialization.Json;
 using AsrkRf.Rpl.Common;
 using AsrkRf.Rpl.Session;
 using Cloud;
-using FireBird.Entity;
 using NHibernate.Transform;
 using Noesis.Javascript;
 
 namespace AsrkRf.Rpl.Subdivision
 {
-    public class FirebirdSubdivisionProvider: IFirebird
+    public class FirebirdSubdivisionProvider: CommonProvider, IFirebird
     {
-        private readonly ISessionHelper sessionHelper;
-        private readonly IUriHelper uriHelper;
-
-        public FirebirdSubdivisionProvider(ISessionHelper sessionHelper, IUriHelper uriHelper)
+        public FirebirdSubdivisionProvider(ISessionHelper sessionHelper, IUriHelper uriHelper): base(sessionHelper, uriHelper)
         {
-            this.sessionHelper = sessionHelper;
-            this.uriHelper = uriHelper;
-        }
-
-        private Type GetTypeByName(string name)
-        {
-            if (name == "Firebird.Entity.Podrazdelenie") return typeof(PODRAZDELENIE);
-            //if (name == "Firebird.Entity.Test") return typeof(Test);
-            throw new Exception("Не найден подходящий класс");
         }
 
         public object Get(decimal id)
