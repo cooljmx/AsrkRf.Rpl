@@ -6,11 +6,11 @@
 as
     (
         select
-            p.id_podrazdelenie as "IdPodrazdelenie",
-            p.id_parent as "IdParent",
-            p.id_region as "IdRegion",
-            p.podrazdname as "Podrazdname",
-            p.podrazdname_sokr as "PodrazdnameSokr"
+            p.id_podrazdelenie,
+            p.id_parent,
+            p.id_region,
+            p.podrazdname,
+            p.podrazdname_sokr
         from podrazdelenie p
         where
             p.id_podrazdelenie = :id
@@ -22,7 +22,7 @@ as
             p.podrazdname,
             p.podrazdname_sokr
         from podrazdelenie p
-            inner join tree prior on prior."IdParent" = p.id_podrazdelenie
+            inner join tree prior on prior.id_Parent = p.id_podrazdelenie
     )
 select * from tree;</SqlText>
     <IsList>true</IsList>

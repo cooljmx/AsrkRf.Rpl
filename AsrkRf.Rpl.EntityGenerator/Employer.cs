@@ -103,9 +103,10 @@ where
         {
             try
             {
-                return value.Replace("__", "_").Split('_')
+                /*return value.Replace("__", "_").Split('_')
                     .Select(x => x.Substring(0, 1).ToUpper() + x.Substring(1).ToLower())
-                    .Aggregate((a, b) => a + b);
+                    .Aggregate((a, b) => a + b);*/
+                return value;
             }
             catch (Exception exception)
             {

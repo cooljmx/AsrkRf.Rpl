@@ -25,7 +25,7 @@ namespace AsrkRf.Rpl.Subdivision
 
         private Type GetTypeByName(string name)
         {
-            if (name == "Firebird.Entity.Podrazdelenie") return typeof(Podrazdelenie);
+            if (name == "Firebird.Entity.Podrazdelenie") return typeof(PODRAZDELENIE);
             //if (name == "Firebird.Entity.Test") return typeof(Test);
             throw new Exception("Не найден подходящий класс");
         }
